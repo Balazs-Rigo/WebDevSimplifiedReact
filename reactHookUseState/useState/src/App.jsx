@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-function countInitial() {
-  console.log("run function");
-  return 4;
-}
+export default function App() {
+  const [name, setName] = useState("");
+  const inputRef = useRef();
 
-function App() {
-  const [count, setCount] = useState(() => countInitial());
-
-  function decrementCount() {
-    setCount((prevCount) => prevCount - 1);
-  }
-
-  function incrementCount() {
-    setCount((prevCount) => prevCount + 1);
-  }
+  const focusInput = () => {
+    inputRef.current.focus();
+  };
 
   return (
     <>
-      <button onClick={decrementCount}>-</button>
-      <span>{count}</span>
-      <button onClick={incrementCount}>+</button>
+      <input
+        ref={inputRef}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <div>My name is {name}</div>
+      <button onClick={focusInput}>Focus</button>
     </>
   );
 }
-
-export default App;
